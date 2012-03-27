@@ -4,6 +4,8 @@
 
 #' @export
 
+#' @return A data frame containing each subject's associated meta data. 
+
 parse_meta <- function(txt) {
 
   # Exclude text after meta data
