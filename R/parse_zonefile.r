@@ -8,7 +8,7 @@ parse_zonefile <- function(file) {
   txt <- readLines(file, encoding = "UTF-8")
 
   # Split into list of multiple subjects
-  split.txt  <- split_text(raw, split.lines = identify_headers(txt))
+  split.txt  <- split_text(txt, split.lines = identify_headers(txt))
 
   # Extract meta data for each subject
   meta.data <- lapply(split.txt, function(x) parse_meta(x))
@@ -22,7 +22,7 @@ parse_zonefile <- function(file) {
     function(x) data.frame(do.call("rbind", x), row.names = NULL))
 
   # Merge meta and zone data
-  parsed <- do.call("rbind", sapply(1:length(split.text), simplify = F,
+  parsed <- do.call("rbind", sapply(1:length(zone.data), simplify = F,
     function(x) merge(meta.data[[x]], zone.data[[x]])))
     
   return(parsed)
