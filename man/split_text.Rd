@@ -15,6 +15,10 @@
   \item{txt}{character vector containing each line of the
   raw .zone file}
 }
+\value{
+  A list containing relevant lines of zone file for each
+  subject.
+}
 \description{
   Split raw text into subject specific sections
 }
