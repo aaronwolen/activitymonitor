@@ -1,13 +1,14 @@
 #' List zone names contained in zone file
 
 #' @inheritParams identify_headers
+#' @param zone.define header label denoting zone definition area
 
 #' @export
 
-list_zones <- function(txt) {
+list_zones <- function(txt, zone.define = "Zones Defined") {
   
   # Trim txt to include only zone data area
-  txt <- txt[(grep("Zones Defined", txt) + 1):(grep("Zone Totals", txt) - 1)]
+  txt <- txt[(grep(zone.define, txt) + 1):(grep("Zone Totals", txt) - 1)]
 
   # Identify and clean up zone names
   zones <- txt[grep("^Zone|^Residual", txt)]
