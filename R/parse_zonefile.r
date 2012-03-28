@@ -1,9 +1,10 @@
 #' Read in and parse zone file
 
 #' @param file Zone file
+#' @param convert.times use \code{\link{convert_time}} to automatically identify MedAssociates time formats and convert values to numeric seconds
 
 #' @export
-parse_zonefile <- function(file) {
+parse_zonefile <- function(file, convert.times = TRUE) {
   
   txt <- readLines(file, encoding = "UTF-8")
 
@@ -24,6 +25,10 @@ parse_zonefile <- function(file) {
   # Merge meta and zone data
   parsed <- do.call("rbind", sapply(1:length(zone.data), simplify = F,
     function(x) merge(meta.data[[x]], zone.data[[x]])))
+  
+  if(convert.times) {
+    parsed <- colwise(function(x) convert_time(x, use = "preserve"))(parsed)
+  }
     
   return(parsed)
 }
