@@ -1,4 +1,4 @@
-export(calc_seconds)
+export(convert_time)
 export(identify_breaks)
 export(identify_headers)
 export(list_zones)
