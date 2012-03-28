@@ -23,7 +23,7 @@ parse_meta <- function(txt) {
 
   # Transform into a wide data frame
   meta <- data.frame(matrix(meta$value, nrow = 1, 
-    dimnames = list(1, meta$field)))
+    dimnames = list(1, meta$field)), stringsAsFactors = FALSE)
   
   return(meta)  
 }

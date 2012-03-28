@@ -45,7 +45,7 @@ parse_zone <- function(txt, zone) {
   colnames(df.data) <- df.labels
   
   # Add zone identifier
-  df.data <- data.frame(Zone = zone, df.data)
+  df.data <- data.frame(Zone = zone, df.data, stringsAsFactors = FALSE)
   
   return(df.data)
 }
