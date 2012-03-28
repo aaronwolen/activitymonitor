@@ -21,6 +21,10 @@ parse_zonefile <- function(file, convert.times = TRUE) {
   # For each subject create single data frame with all zones
   zone.data <- lapply(zone.data, 
     function(x) data.frame(do.call("rbind", x), row.names = NULL))
+  
+  # Add Time.Block column
+  zone.data <- lapply(zone.data, function(x) 
+    data.frame(Time.Block = rep(1:table(x$Zone)[1], nlevels(factor(x$Zone))), x))
 
   # Merge meta and zone data
   parsed <- do.call("rbind", sapply(1:length(zone.data), simplify = F,
