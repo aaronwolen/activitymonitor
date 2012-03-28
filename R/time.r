@@ -1,6 +1,6 @@
 #' Convert MedAssociates time formats to numeric seconds
 #' 
-#' If \code{use} is "stop", any values not matching the format will produce an error. If \code{use} is "preserve" then unmatched values will be return along with the converted matching values with the original order preserved. If \code{use} is "ignore", values not matching the format will be removed from the result. 
+#' If \code{use} is "stop", any values not matching the format will produce an error. If \code{use} is "preserve" then unmatched values will be return along with the converted matching values with the original order preserved. If \code{use} is "ignore", values not matching the format will be removed from the result and converted values will be returned as a numeric vector.
 #'
 #' @param x Character vector of times in the MedAssociates format (e.g., 0000:00.00)
 #' @param pattern regular expression pattern used to match time format. A commonly used format is set by default.
@@ -24,6 +24,7 @@ convert_time <- function(x, pattern, use = "stop") {
     stop("x doesn't match time pattern.", call. = FALSE)
   }
 
+  # If no matches
   if(!any(matches)) {
     if(use == "ignore") {
       return(NULL)
@@ -31,15 +32,15 @@ convert_time <- function(x, pattern, use = "stop") {
       return(x)
     }
   }
-  
+
   secs <- calc_seconds(x[matches])
 
-  if(use == "ignore") {
+  if(use == "ignore" | !any(!matches)) {
     return(secs)
   } else if (use == "preserve") {
     out <- rep(NA, length(x))
-    out[which(matches)] <- secs
     out[which(!matches)] <- x[which(!matches)]
+    out[which(matches)] <- secs
     return(out)
   }
 }
