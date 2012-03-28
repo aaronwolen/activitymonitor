@@ -2,8 +2,12 @@
 
 #' @param file Zone file
 #' @param convert.times use \code{\link{convert_time}} to automatically identify MedAssociates time formats and convert values to numeric seconds
-
+#'
 #' @export
+#'
+#' @examples
+#' zone.file <- dir(file.path(find.package("activitymonitor"), "data"), full.names = T)
+#' parsed <- parse_zonefile(zone.file, convert.times = TRUE)
 parse_zonefile <- function(file, convert.times = TRUE) {
   
   txt <- readLines(file, encoding = "UTF-8")
